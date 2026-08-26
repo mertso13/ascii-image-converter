@@ -4,10 +4,14 @@ import (
 	"math"
 )
 
+// Ramp maps pixel brightness to characters. Its characters must be ordered
+// darkest first.
 type Ramp struct {
 	chars []rune
 }
 
+// NewRamp returns a Ramp using chars, ordered darkest to lightest,
+// or nil if chars is empty.
 func NewRamp(chars string) *Ramp {
 	if len(chars) == 0 {
 		return nil
@@ -20,10 +24,13 @@ func NewRamp(chars string) *Ramp {
 	return &ramp
 }
 
+// Len returns the number of characters in the ramp.
 func (r *Ramp) Len() int {
 	return len(r.chars)
 }
 
+// At returns the character for luminance lum. Black maps to the first
+// character, white to the last.
 func (r *Ramp) At(lum uint8) rune {
 	lumFloat := float64(lum)
 	index := math.Floor(lumFloat/255*(float64(r.Len()-1)) + 0.5)
@@ -31,6 +38,8 @@ func (r *Ramp) At(lum uint8) rune {
 	return r.chars[indexInt]
 }
 
+// Invert returns a copy of the ramp with reversed order, for use on
+// light terminal backgrounds.
 func (r *Ramp) Invert() *Ramp {
 	var rReversed []rune
 	for i := len(r.chars) - 1; i >= 0; i-- {
@@ -51,6 +60,8 @@ const (
 	rampBlocks   = " ░▒▓█"
 )
 
+// ByName returns the named built-in ramp: "standard", "extended",
+// "minimal", or "blocks". ok is false if name is unknown.
 func ByName(name string) (r *Ramp, ok bool) {
 	switch name {
 	case "standard":
