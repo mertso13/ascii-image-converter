@@ -1,4 +1,6 @@
 # ascii-image-converter
+[![CI](https://github.com/mertso13/ascii-image-converter/actions/workflows/ci.yml/badge.svg)](https://github.com/mertso13/ascii-image-converter/actions/workflows/ci.yml)
+[![Go](https://img.shields.io/badge/Go-1.27+-007d9c?logo=go&logoColor=white)](https://go.dev)
 
 `ascii-conv` converts PNG, JPEG, GIF, WebP, and BMP images into ASCII art. It handles terminal dimension auto-detection, font aspect-ratio correction, resampling filters, and custom character ramps.
 
